@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.0",
     "pg": "6",
     "sequelize": "^4.35.2"
   }
