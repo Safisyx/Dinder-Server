@@ -17,11 +17,11 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
   description: {
     type: Sequelize.STRING,
     allowNull: true
-  }
+  },
   breedsLiked: {
     type: Sequelize.INTEGER, ///Sequelize.JSON//Sequelize.ARRAY?
     allowNull: false

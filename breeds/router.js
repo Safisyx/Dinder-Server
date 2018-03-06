@@ -2,11 +2,10 @@ const Router = require('express').Router
 const Breed = require('./model')
 
 const router = new Router()
-module.exports = router
 
 router.get('/breeds', (req, res) => {
   Breed.findAll({
-    attributes: ['id', 'name']
+    attributes: ['id', 'type', 'numberOfLikes']
   })
     .then(result => {
       res.json(result)
@@ -32,3 +31,5 @@ router.get('/breeds/:id', (req, res) => {
       res.json({ message: 'There was an error' })
     })
 })
+
+module.exports = router //ES6 -style module export

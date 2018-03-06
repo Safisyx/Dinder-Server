@@ -9,11 +9,11 @@ const Breed = sequelize.define('breed', {
   numberOfLikes: {
     type: Sequelize.INTEGER,
     allowNull: false
-  }
+  },
 }, {
   tableName: 'breeds',
   timestamps: false
 })
 
 
-module.exports = Product
+module.exports = Breed //ES6-style module export
