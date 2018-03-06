@@ -1,8 +1,13 @@
 const express = require('express')
+const Sequelize = require('sequelize')
+const bodyParser = require('body-parser')
+const usersRouter = require('./users/router')
+
 const app = express()
 
+
 var Sequelize = require('sequelize')
-var sequelize = new Sequelize('postgres://localhost:5432/postgres')
+var Sequelize = new Sequelize('postgres://localhost:5432/postgres')
 
 app.listen(4001, () => console.log('Express API listening on port 4001'))
 
@@ -13,23 +18,5 @@ app.use(function(req, res, next) {
   next()
 })
 
-const User = sequelize.define('user', {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  price: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  description: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  image: Sequelize.STRING
-}, {
-  tableName: 'users',
-  timestamps: false
-})
-
-Product.findById(1).then(product => console.log(JSON.stringify(product)))
+app.use(bodyParser.json())
+app.use(usersRouter)
