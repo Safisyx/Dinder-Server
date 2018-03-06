@@ -6,7 +6,7 @@ const Breed = sequelize.define('breed', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  numberOfLikes: {
+  numberoflikes: {
     type: Sequelize.INTEGER,
     allowNull: false
   },

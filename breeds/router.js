@@ -5,7 +5,7 @@ const router = new Router()
 
 router.get('/breeds', (req, res) => {
   Breed.findAll({
-    attributes: ['id', 'type', 'numberOfLikes']
+    attributes: ['id', 'type', 'numberoflikes']
   })
     .then(result => {
       res.json(result)

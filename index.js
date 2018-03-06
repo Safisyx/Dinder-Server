@@ -1,13 +1,14 @@
 const express = require('express')
 const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
-const breedsRouter = require('./breeds/router')
-const usersRouter = require('./users/router')
 const verify = require('./jwt').verify
 const User = require('./users/model')
 
 const app = express()
+const breedsRouter = require('./breeds/router')
+const usersRouter = require('./users/router')
 
+app.use(bodyParser.json())
 // var Sequelize = new Sequelize('postgres://localhost:5432/postgres')
 
 app.listen(4001, () => console.log('Express API listening on port 4001'))
@@ -50,7 +51,5 @@ app.use(function (req, res, next) {
   else next()
 })
 
-
-app.use(bodyParser.json())
 app.use(breedsRouter)
 app.use(usersRouter)
