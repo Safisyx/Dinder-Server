@@ -107,5 +107,23 @@ router.get('/users/:id', (req, res) => {
     })
 })
 
+router.delete('/users/:id', (req, res) => {
+  User.findById(req.params.id)
+    .then(entity => {
+      return entity.destroy()
+    })
+    .then(_ => {
+      res.send({
+        message: 'The user was deleted succesfully'
+      })
+    })
+    .catch(error => {
+      res.status(500).send({
+        message: `Something went wrong`,
+        error
+      })
+    })
+})
+
 
 module.exports = router

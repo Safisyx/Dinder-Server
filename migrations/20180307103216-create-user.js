@@ -24,7 +24,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       preferredbreed: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.INTEGER), //default value
+        defaultValue: []
       },
       createdAt: {
         type: Sequelize.DATE

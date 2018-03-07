@@ -8,7 +8,6 @@ const Breed = sequelize.define('breed', {
   },
   numberoflikes: {
     type: Sequelize.INTEGER,
-    allowNull: false
   },
 }, {
   tableName: 'breeds',
