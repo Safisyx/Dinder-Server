@@ -22,7 +22,10 @@ router.get('/secret', (req, res) => {
 router.post('/users', (req, res) => {
   const user = {
   	email: req.body.email,
-  	password: bcrypt.hashSync(req.body.password, 10)
+  	password: bcrypt.hashSync(req.body.password, 10),
+		name: req.body.name,
+		description: req.body.description,
+		preferredbreed: req.body.preferredbreed
   }
 
   User.create(user)
@@ -30,6 +33,7 @@ router.post('/users', (req, res) => {
       res.status(201)
       res.json({
         id: entity.id,
+				name: entity.name,
         email: entity.email
       })
     })
@@ -48,7 +52,7 @@ router.post('/logins', (req, res) => {
     	password: req.body.password
     }
 
-User.findOne({
+		User.findOne({
     	where: {
     		email: req.body.email
     	}
@@ -73,5 +77,35 @@ User.findOne({
     		})
     	})
 })
+
+router.get('/users', (req, res) => {
+  User.findAll({
+    attributes: ['email', 'name', 'preferredbreed']
+  })
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.status(500)
+      res.json({message: 'Something went wrong'})
+    })
+})
+
+router.get('/users/:id', (req, res) => {
+  User.findById(req.params.id)
+    .then(result => {
+      if (result) {
+        res.json(result)
+      } else {
+        res.status(404)
+        res.json({ message: 'Not Found' })
+      }
+    })
+    .catch(err => {
+      res.status(500)
+      res.json({ message: 'There was an error' })
+    })
+})
+
 
 module.exports = router

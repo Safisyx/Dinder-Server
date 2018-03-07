@@ -9,6 +9,16 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
+  preferredbreed: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
 }, {
   tableName: 'users',

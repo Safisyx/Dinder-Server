@@ -8,6 +8,7 @@ const app = express()
 const breedsRouter = require('./breeds/router')
 const usersRouter = require('./users/router')
 
+
 app.use(bodyParser.json())
 // var Sequelize = new Sequelize('postgres://localhost:5432/postgres')
 
