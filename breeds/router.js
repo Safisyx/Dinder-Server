@@ -46,7 +46,7 @@ router.post('/breeds', (req, res) => {
     })
 })
 
-app.patch('/breeds/:id', (req, res) => {
+router.patch('/breeds/:id', (req, res) => {
   const breeds = breed
     .findById(req.params.id)
     .then((breed) => {

@@ -34,7 +34,8 @@ router.post('/users', (req, res) => {
       res.json({
         id: entity.id,
 				name: entity.name,
-        email: entity.email
+        email: entity.email,
+				preferredbreed: entity.preferredbreed
       })
     })
     .catch(err => {
