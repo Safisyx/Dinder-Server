@@ -3,7 +3,14 @@ const Breed = require('./model')
 
 const router = new Router()
 
-router.get('/breeds', (req, res) => {
+const requireUser = (req, res, next) => {
+	if (req.user) next()
+	else res.status(401).send({
+		message: 'Please login'
+	})
+}
+
+router.get('/breeds', requireUser, (req, res) => {
   Breed.findAll({
     attributes: ['id', 'type', 'numberoflikes']
   })
@@ -16,7 +23,7 @@ router.get('/breeds', (req, res) => {
     })
 })
 
-router.get('/breeds/:id', (req, res) => {
+router.get('/breeds/:id', requireUser, (req, res) => {
   Breed.findById(req.params.id)
     .then(result => {
       if (result) {
@@ -32,7 +39,7 @@ router.get('/breeds/:id', (req, res) => {
     })
 })
 
-router.post('/breeds', (req, res) => {
+router.post('/breeds', requireUser, (req, res) => {
   const breed = req.body
 
   Breed.findOrCreate({

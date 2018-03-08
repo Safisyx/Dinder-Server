@@ -6,6 +6,13 @@ const sign = require('../jwt').sign
 
 const router = new Router()
 
+const requireUser = (req, res, next) => {
+	if (req.user) next()
+	else res.status(401).send({
+		message: 'Please login'
+	})
+}
+
 router.get('/secret', (req, res) => {
 	if (req.user) {
 		res.send({

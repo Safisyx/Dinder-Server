@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
       }
       else {
         User
-          .findById(jwt.data.id)
+          .findById(jwt.id)
           .then(entity => {
             req.user = entity
             next()
