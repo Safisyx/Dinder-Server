@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "EvaGolabek",
-    "password": "",
-    "database": "dogtinder",
+    "username": "postgres",
+    "password": "secret",
+    "database": "postgres",
     "host": "localhost",
     "dialect": "postgres"
   },
