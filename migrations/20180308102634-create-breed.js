@@ -13,8 +13,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       numberoflikes: {
-        type: Sequelize.INTEGER, //default value
-        defaultValue: 0
+        type: Sequelize.INTEGER,
+        defaultValue: 1
       },
       createdAt: {
         type: Sequelize.DATE

@@ -20,13 +20,17 @@ router.get('/secret', (req, res) => {
 })
 
 router.post('/users', (req, res) => {
+	const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1)
+	        .split(',').map(s=>parseInt(s)):[]
+	console.log(a);
   const user = {
   	email: req.body.email,
   	password: bcrypt.hashSync(req.body.password, 10),
 		name: req.body.name,
 		description: req.body.description,
-		preferredbreed: req.body.preferredbreed
+		preferredbreed: a
   }
+	//console.log('[3,4,5]'.slice(1,-1));
 
   User.create(user)
     .then(entity => {
@@ -45,7 +49,7 @@ router.post('/users', (req, res) => {
       })
     })
 
-  })
+})
 
 router.post('/logins', (req, res) => {
     const user = {
@@ -125,6 +129,42 @@ router.delete('/users/:id', (req, res) => {
       })
     })
 })
+
+const updateOrPatch = (req, res) => {
+  //const productId = Number(req.params.id
+  let updates = req.body
+  // if (req.body.preferredbreed) {
+	// 	//const a=updates.preferredbreed.concparseInt(req.body.preferredbreed)
+	// 	console.log(updates.preferredbreed);
+	//   //updates.preferredbreed.push(parseInt(req.body.preferredbreed))
+	// }
+
+  // find the product in the DB
+  User.findById(req.params.id)
+    .then(entity => {
+			if (updates.preferredbreed){
+			  const a = entity.preferredbreed.concat(parseInt(updates.preferredbreed))
+				updates.preferredbreed=a
+				console.log(a);
+			}
+			return entity.update(updates)
+		})
+
+    .then(final => {
+      // respond with the changed product and status code 200 OK
+      res.send(final)
+    })
+    .catch(error => {
+      res.status(500).send({
+        message: `Something went wrong`,
+        error
+      })
+    })
+}
+
+router.put('/users/:id', updateOrPatch)
+router.patch('/users/:id', updateOrPatch)
+
 
 
 module.exports = router
