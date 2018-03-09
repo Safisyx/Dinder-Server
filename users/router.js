@@ -20,9 +20,10 @@ router.get('/secret', (req, res) => {
 })
 
 router.post('/users', (req, res) => {
-	const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1)
-	        .split(',').map(s=>parseInt(s)):[]
-	console.log(a);
+	// console.log(req.body.preferredbreed);
+	 const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1).split(','):[]
+
+	console.log(typeof(req.body.preferredbreed.slice(1,-1).split(',')));
   const user = {
   	email: req.body.email,
   	password: bcrypt.hashSync(req.body.password, 10),
@@ -39,6 +40,7 @@ router.post('/users', (req, res) => {
         id: entity.id,
 				name: entity.name,
         email: entity.email,
+				description: entity.description,
 				preferredbreed: entity.preferredbreed
       })
     })
@@ -143,7 +145,7 @@ const updateOrPatch = (req, res) => {
   User.findById(req.params.id)
     .then(entity => {
 			if (updates.preferredbreed){
-			  const a = entity.preferredbreed.concat(parseInt(updates.preferredbreed))
+			  const a = entity.preferredbreed.concat(updates.preferredbreed)
 				updates.preferredbreed=a
 				console.log(a);
 			}
