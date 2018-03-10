@@ -23,7 +23,7 @@ router.post('/users', (req, res) => {
 	// console.log(req.body.preferredbreed);
 	 const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1).split(','):[]
 
-	console.log(typeof(req.body.preferredbreed.slice(1,-1).split(',')));
+	//console.log(typeof(req.body.preferredbreed.slice(1,-1).split(',')));
   const user = {
   	email: req.body.email,
   	password: bcrypt.hashSync(req.body.password, 10),
@@ -67,6 +67,7 @@ router.post('/logins', (req, res) => {
     .then(entity => {
     	if (bcrypt.compareSync(req.body.password, entity.password)) {
     		 res.send({
+					  details: entity,
     				jwt: sign(entity.id)
     			})
     		}
@@ -102,7 +103,9 @@ router.get('/users/:id', (req, res) => {
   User.findById(req.params.id)
     .then(result => {
       if (result) {
-        res.json(result)
+				//console.log(result.dataValues);
+        res.json({id:result.dataValues.id,name:result.dataValues.name,email:result.dataValues.email,
+				description:result.dataValues.description,preferredbreed:result.dataValues.preferredbreed})
       } else {
         res.status(404)
         res.json({ message: 'Not Found' })
@@ -154,6 +157,7 @@ const updateOrPatch = (req, res) => {
 
     .then(final => {
       // respond with the changed product and status code 200 OK
+			console.log(final);
       res.send(final)
     })
     .catch(error => {
