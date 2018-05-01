@@ -88,7 +88,7 @@ router.post('/logins', (req, res) => {
 
 router.get('/users', (req, res) => {
   User.findAll({
-    attributes: ['email', 'name', 'preferredbreed']
+    attributes: ['id','email', 'name', 'description', 'preferredbreed']
   })
     .then(result => {
       res.json(result)
@@ -148,7 +148,12 @@ const updateOrPatch = (req, res) => {
   User.findById(req.params.id)
     .then(entity => {
 			if (updates.preferredbreed){
-			  const a = entity.preferredbreed.concat(updates.preferredbreed)
+				console.log('=====================');
+				console.log(updates.preferredbreed);
+				console.log(entity.preferredbreed.includes(updates.preferredbreed));
+			  const a = (entity.preferredbreed.includes(updates.preferredbreed))?
+				           entity.preferredbreed:
+									 entity.preferredbreed.concat(updates.preferredbreed)
 				updates.preferredbreed=a
 				console.log(a);
 			}
@@ -157,8 +162,8 @@ const updateOrPatch = (req, res) => {
 
     .then(final => {
       // respond with the changed product and status code 200 OK
-			console.log(final);
-      res.send(final)
+			const {password,...rest} = final.dataValues
+      res.send(rest)
     })
     .catch(error => {
       res.status(500).send({
