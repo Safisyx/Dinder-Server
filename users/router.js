@@ -20,9 +20,10 @@ router.get('/secret', (req, res) => {
 })
 
 router.post('/users', (req, res) => {
-	const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1)
-	        .split(',').map(s=>parseInt(s)):[]
-	console.log(a);
+	// console.log(req.body.preferredbreed);
+	 const a=(req.body.preferredbreed)?req.body.preferredbreed.slice(1,-1).split(','):[]
+
+	//console.log(typeof(req.body.preferredbreed.slice(1,-1).split(',')));
   const user = {
   	email: req.body.email,
   	password: bcrypt.hashSync(req.body.password, 10),
@@ -39,6 +40,7 @@ router.post('/users', (req, res) => {
         id: entity.id,
 				name: entity.name,
         email: entity.email,
+				description: entity.description,
 				preferredbreed: entity.preferredbreed
       })
     })
@@ -101,7 +103,7 @@ router.get('/users/:id', (req, res) => {
   User.findById(req.params.id)
     .then(result => {
       if (result) {
-				console.log(result.dataValues);
+				//console.log(result.dataValues);
         res.json({id:result.dataValues.id,name:result.dataValues.name,email:result.dataValues.email,
 				description:result.dataValues.description,preferredbreed:result.dataValues.preferredbreed})
       } else {
@@ -146,7 +148,7 @@ const updateOrPatch = (req, res) => {
   User.findById(req.params.id)
     .then(entity => {
 			if (updates.preferredbreed){
-			  const a = entity.preferredbreed.concat(parseInt(updates.preferredbreed))
+			  const a = entity.preferredbreed.concat(updates.preferredbreed)
 				updates.preferredbreed=a
 				console.log(a);
 			}
@@ -155,6 +157,7 @@ const updateOrPatch = (req, res) => {
 
     .then(final => {
       // respond with the changed product and status code 200 OK
+			console.log(final);
       res.send(final)
     })
     .catch(error => {

@@ -15,10 +15,10 @@ const User = sequelize.define('user', {
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
   },
   preferredbreed: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 }, {
   tableName: 'users',
