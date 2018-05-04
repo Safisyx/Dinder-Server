@@ -1,7 +1,7 @@
 # Dinder-Server
 Class15/projectWeek/backend
 
-A backend for https://github.com/Safisyx/Dinder-Client
+A backend for https://github.com/Safisyx/Dinder-Client  
 This was a group project.
 
 ## To run it
